@@ -10,15 +10,15 @@ class Signature
   DEFAULTS = {
     company:  'EYC3',
     address:  'Level 4, 459 Little Collins St Melbourne, VIC 3000',
-    website:  'http://c3.com.au/',
+    website:  'http://eyc3.com/',
     twitter:  'EYC3analytics',
     linkedin_name:  'EYC3',
     linkedin_url:   'http://www.linkedin.com/company/eyc3'
   }
 
   LOGO_PATHS = {
-    'c3'  =>  'http://c3.com.au/images/ey_c3_email_1.gif',
-    'imc' =>  'http://c3.com.au/images/ey_imc_email_1.gif'
+    'c3'  =>  'http://eyc3.com/images/ey_c3_email_1.gif',
+    'imc' =>  'http://eyc3.com/images/ey_imc_email_1.gif'
   }
 
   attr_accessor :name, :role, :phone, :email, :linkedin_name, :linkedin_url, :twitter, :company, :address, :website, :logo,
