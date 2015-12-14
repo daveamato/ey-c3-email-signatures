@@ -9,7 +9,7 @@ class Signature
 
   DEFAULTS = {
     company:  'EYC3',
-    address:  'Level 4, 459 Little Collins St Melbourne, VIC 3000',
+    address:  '8 Exhibition St, Melbourne VIC 3000',
     website:  'http://eyc3.com/',
     twitter:  'EYC3analytics',
     linkedin_name:  'EYC3',
