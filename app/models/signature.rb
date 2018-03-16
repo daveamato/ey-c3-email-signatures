@@ -10,15 +10,15 @@ class Signature
   DEFAULTS = {
     company:  'EYC3',
     address:  '8 Exhibition St, Melbourne VIC 3000',
-    website:  'http://eyc3.com/',
+    website:  'https://eyc3.com/',
     twitter:  'EYC3analytics',
     linkedin_name:  'EYC3',
-    linkedin_url:   'http://www.linkedin.com/company/eyc3'
+    linkedin_url:   'https://www.linkedin.com/company/eyc3'
   }
 
   LOGO_PATHS = {
-    'c3'  =>  'http://eyc3.com/images/ey_c3_email_1.gif',
-    'imc' =>  'http://eyc3.com/images/ey_imc_email_1.gif'
+    'c3'  =>  'https://eyc3.com/images/ey_c3_email_1.gif',
+    'imc' =>  'https://eyc3.com/images/ey_imc_email_1.gif'
   }
 
   attr_accessor :name, :role, :phone, :email, :linkedin_name, :linkedin_url, :twitter, :company, :address, :website, :logo,
