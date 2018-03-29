@@ -33,7 +33,7 @@
                 Mobile: <%= link_to @signature.phone, @signature.phone_href, :style => 'color; blue;' %><br/>
                 Email: <%= mail_to @signature.email, @signature.email, :style => 'color: blue;' %><br/>
                 Linkedin: <%- if @signature.linkedin_url.present? -%><%= link_to @signature.name, @signature.linkedin_url, :style => 'color: blue;' %> &amp; <%- end -%><%= link_to "EY Analytics (Asia-Pacific)", "https://www.linkedin.com/company/ey-data-analytics/", :style => 'color: blue;' %><br/>
-                Twitter: <%- if @signature.twitter.present? -%><%= link_to @signature.twitter_name, @signature.twitter_url, :style => 'color: blue;' %> &amp; <%- end -%><%= link_to "@EYDnAAPAC", "https://twitter.com/EYDnAAPAC", :style => 'color: blue;' %><br/>
+                Twitter: <%- if @signature.twitter.present? -%><%= link_to @signature.twitter_name, @signature.twitter_url, :style => 'color: blue;' %> &amp; <%- end -%><%= link_to "@EYanalyticsAPAC", "https://twitter.com/EYanalyticsAPAC", :style => 'color: blue;' %><br/>
                 Website: <%= link_to 'www.ey.com/analytics/apac', 'https://www.ey.com/analytics/apac', :style => 'color: blue;' %><br/>
               </span>
             </td>
