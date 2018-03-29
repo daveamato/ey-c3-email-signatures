@@ -45,29 +45,29 @@
 
 - if @valid
 
-  %h4 Minimal
-  .row
-    .span2
-      = link_to 'Download', url_for(:action => 'download', :size => 'minimal', :signature => params[:signature]), :class => 'btn'
-    .span10
-      %iframe{:src => url_for(:action => 'preview', :size => 'minimal', :signature => params[:signature]), :width => '100%', :height => '240'}
+  .alert.alert-success
+    Excellent! <strong>Copy + Paste the contents</strong> of each signature below into your Outlook email signature settings.<br>
+    HTML file downloads are available for other email clients or if you need to futher modify your signature.
 
-  %h4 Medium
+  %h4 Minimal
+  %p This signature is optionally used for replies and forwarding emails.
   .row
     .span2
-      = link_to 'Download', url_for(:action => 'download', :size => 'medium', :signature => params[:signature]), :class => 'btn'
+      = link_to 'Download HTML', url_for(:action => 'download', :size => 'minimal', :signature => params[:signature]), :class => 'btn'
     .span10
-      %iframe{:src => url_for(:action => 'preview', :size => 'medium', :signature => params[:signature]), :width => '100%', :height => '240'}
+      %iframe{:src => url_for(:action => 'preview', :size => 'minimal', :signature => params[:signature]), :width => '100%', :height => '240', :id => 'minimal'}
 
   %h4 Full-sized
+  %p All the bells and whistles.
   .row
     .span2
-      = link_to 'Download', url_for(:action => 'download', :size => 'full', :signature => params[:signature]), :class => 'btn'
+      = link_to 'Download HTML', url_for(:action => 'download', :size => 'full', :signature => params[:signature]), :class => 'btn'
     .span10
-      %iframe{:src => url_for(:action => 'preview', :size => 'full', :signature => params[:signature]), :width => '100%', :height => '240'}
+      %iframe{:src => url_for(:action => 'preview', :size => 'full', :signature => params[:signature]), :width => '100%', :height => '240', :id => 'full'}
 
 <br/>
 <br/>
 <br/>
 <br/>
 <br/>
+

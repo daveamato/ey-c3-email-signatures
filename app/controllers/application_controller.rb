@@ -24,7 +24,7 @@ protected
   end
 
   def validate_size
-    raise unless ['full', 'medium', 'minimal'].include? params[:size]
+    raise unless ['full', 'minimal'].include? params[:size]
   end
 
 end
