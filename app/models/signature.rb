@@ -8,25 +8,51 @@ class Signature
   include ActionView::Helpers::NumberHelper
 
   DEFAULTS = {
-    company:  'EYC3',
-    address:  '8 Exhibition St, Melbourne VIC 3000',
-    website:  'https://eyc3.com/',
-    twitter:  'EYC3analytics',
-    linkedin_name:  'EYC3',
-    linkedin_url:   'https://www.linkedin.com/company/eyc3'
+    twitter: 'EYDnAAPAC',
+    linkedin_name: 'EY Analytics (Asia-Pacific)',
+    linkedin_url: 'https://www.linkedin.com/company/ey-data-analytics/'
   }
 
-  LOGO_PATHS = {
-    'c3'  =>  'https://eyc3.com/images/ey_c3_email_1.gif',
-    'imc' =>  'https://eyc3.com/images/ey_imc_email_1.gif'
-  }
+  ADDRESSES = [
+    { value: "8 Exhibition St. Melbourne VIC 3000", data: { country: "Australia" } },
+    { value: "200 George St. Sydney NSW 2000", data: { country: "Australia" } },
+    { value: "121 Marcus Clarke St. Canberra ACT 2600", data: { country: "Australia" } },
+    { value: "Level 5, 121 King William St. Adelaide SA 5000", data: { country: "Australia" } },
+    { value: "Level 51, 111 Eagle St. Brisbane QLD 4000", data: { country: "Australia" } },
+    { value: "11 Mounts Bay Rd. Perth WA 6000", data: { country: "Australia" } },
+    { value: "2 Takutai Square, Britomart Auckland 1010", data: { country: "New Zealand" } },
+    { value: "Level 18 North Tower, One Raffles Quay 048583 Singapore", data: { country: "Singapore" } },
+    { value: "10-2 Taeyoung Bldg. 3 to 8th Floor, Yeoido-dong, Youngdeungpo-gu 150777 Seoul", data: { country: "Republic of Korea" } },
+    { value: "22/F, CITIC Tower, 1 Tim Mei Avenue Central", data: { country: "China" } },
+    { value: "Level 23A, Menara Milenium, Jalan Damanlela Pusat Bandar Damansara 50490 Kuala Lumpur", data: { country: "Malaysia" } }
+  ]
 
-  attr_accessor :name, :role, :phone, :email, :linkedin_name, :linkedin_url, :twitter, :company, :address, :website, :logo,
-                :assistant_name, :assistant_phone, :assistant_email
+  COMPANIES = [
+    { value: "EY Business Solutions Pty Ltd", data: { country: "Australia" } },
+    { value: "EY Business Solutions (New Zealand) Ltd", data: { country: "New Zealand" } },
+    { value: "Ernst & Young Solutions LLP", data: { country: "Singapore" } },
+    { value: "Ernst & Young Advisory Inc.", data: { country: "Republic of Korea" } },
+    { value: "Ernst & Young 安永", data: { country: "China" } },
+    { value: "Ernst & Young Advisory Services Sdn", data: { country: "Malaysia" } },
+    { value: "PT. Ernst & Young Indonesia", data: { country: "Indonesia" } }
+  ]
 
-  validates :name, :role, :phone, :email, :company, :address, :website, :twitter, :linkedin_name, :linkedin_url, :logo, presence: true
+  attr_accessor :name, :role, :phone, :email, :linkedin_url, :twitter, :address, :company,
+    :assistant_name, :assistant_phone, :assistant_email
+
+  validates :name, :role, :phone, :email, :address, :company, presence: true
   validates :assistant_phone, :assistant_email, :presence => true, :if => Proc.new { |r| r.assistant_name.present? }
-  validates :logo, inclusion: %w( c3 imc )
+
+  validates_each :email, :assistant_email do |record, attr, value|
+    email = record.send(attr)
+    next if email.blank?
+    if email =~ /@(eyc3\.com|c3\.com\.au)$/
+      record.errors.add(attr, 'must not be a legacy email address')
+    end
+    unless email =~ /@.*\.ey\.com$/
+      record.errors.add(attr, 'must be a valid EY email address')
+    end
+  end
 
   def persisted?
     false
@@ -34,16 +60,6 @@ class Signature
 
   def initialize(attributes = {})
     attributes.each { |name, value| send "#{name}=", value } if attributes
-  end
-
-  DEFAULTS.each do |attribute, default_value|
-    define_method("default_#{attribute}") { DEFAULTS[attribute.to_sym] }
-    define_method("custom_#{attribute}?") { send(attribute) != send("default_#{attribute}") }
-    define_method(attribute) { instance_variable_get("@#{attribute}").presence || send("default_#{attribute}") }
-  end
-
-  def linkedin_name
-    custom_linkedin_url? ? name : default_linkedin_name
   end
 
   def twitter=(value)
@@ -54,16 +70,8 @@ class Signature
     twitter_to_name twitter
   end
 
-  def default_twitter_name
-    twitter_to_name default_twitter
-  end
-
   def twitter_url
     twitter_to_url twitter
-  end
-
-  def default_twitter_url
-    twitter_to_url default_twitter
   end
 
   def phone_href
@@ -74,24 +82,8 @@ class Signature
     "tel:#{assistant_phone.gsub(/\s/, '')}" if assistant_phone.present?
   end
 
-  def company
-    @company_name.presence || DEFAULTS[:company]
-  end
-
-  def address
-    @address.presence || DEFAULTS[:address]
-  end
-
-  def website
-    @website.presence || DEFAULTS[:website]
-  end
-
-  def website_host
-    URI.parse(website).host
-  end
-
   def logo_path
-    LOGO_PATHS[logo]
+    'https://eyc3.com/images/ey_dna.gif'
   end
 
 protected
@@ -105,3 +97,4 @@ protected
   end
 
 end
+

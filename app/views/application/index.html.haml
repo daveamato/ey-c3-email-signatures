@@ -1,4 +1,4 @@
-%h2 EY C3 Signature Maker
+%h2 EY DnA Signature Maker
 %hr
 
 - if @signature.errors.present?
@@ -6,9 +6,12 @@
 
     %span.pull-right
       Having trouble?
-      = link_to "Send us feedback!", feedback_url, target: '_blank'
+      = link_to "Send us feedback!", feedback_url
 
-    = @signature.errors.full_messages.to_sentence + '.'
+    %p Please correct the following:
+    %ul
+      - @signature.errors.full_messages.each do |message|
+        %li= message
 
 = simple_form_for(@signature, :url => root_path, :method => :get, :html => { :class => 'form-horizontal' }) do |f|
 
@@ -16,23 +19,19 @@
 
   = f.input :role, :placeholder => 'Managing Consultant'
 
-  = f.input :company
+  = f.input :email, :placeholder => 'john.smith@au.ey.com'
 
-  = f.input :email, :placeholder => 'john.smith@eyc3.com'
+  = f.input :phone, :placeholder => '+61 415 926 545'
 
-  = f.input :phone, :placeholder => '+61 314 159 265'
+  = f.input :linkedin_url, :input_html => { :class => 'input-xxlarge', :placeholder => "https://www.linkedin.com/in/johnsmith" }, :label => 'Linkedin URL', :hint => "Your LinkedIn URL (optional)"
 
-  = f.input :linkedin_url, :input_html => { :class => 'input-xxlarge' }, :label => 'Linkedin URL'
-
-  = f.input :twitter, :wrapper => :prepend, :class => 'inline' do
+  = f.input :twitter, :wrapper => :prepend, :class => 'inline', :hint => "Your Twitter username (optional)" do
     %span.add-on @
-    = f.input_field :twitter, :placeholder => 'EYC3analytics'
+    = f.input_field :twitter, :placeholder => 'EYJohnSmith'
 
-  = f.input :address, :input_html => { :class => 'input-xxlarge' }
+  = f.input :company, :input_html => { :class => 'input-xxlarge' }, :hint => "Auto-complete or enter a custom company name"
 
-  = f.input :logo, collection: %w( c3 imc ), include_blank: false
-
-  = f.input :website
+  = f.input :address, :input_html => { :class => 'input-xxlarge' }, :hint => "Auto-complete or enter a custom address"
 
   = f.input :assistant_name
 
@@ -70,4 +69,24 @@
 <br/>
 <br/>
 <br/>
+
+:javascript
+
+  $().ready(function(){
+    var addresses = #{Signature::ADDRESSES.to_json.html_safe};
+    $('#signature_address').autocomplete({
+        lookup: addresses,
+        groupBy: 'country',
+        minChars: 0
+    });
+  });
+
+  $().ready(function(){
+    var companies = #{Signature::COMPANIES.to_json.html_safe};
+    $('#signature_company').autocomplete({
+        lookup: companies,
+        groupBy: 'country',
+        minChars: 0
+    });
+  });
 
