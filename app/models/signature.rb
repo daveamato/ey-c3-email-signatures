@@ -83,7 +83,7 @@ class Signature
   end
 
   def logo_path
-    'https://eyc3.com/images/ey_dna.gif'
+    'http://eyc3-email-assets.s3-website-ap-southeast-2.amazonaws.com/ey_dna.gif'
   end
 
 protected
